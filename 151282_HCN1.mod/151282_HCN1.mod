@@ -9,15 +9,16 @@ UNITS {
  
 NEURON {
   SUFFIX HCN1
-  NONSPECIFIC_CURRENT ih
-  RANGE gbar, g, e, v50, htau, hinf
+  NONSPECIFIC_CURRENT i
+  RANGE gbar, g, v50, htau, hinf
   RANGE gfactor, htaufactor
+  GLOBAL eh
 }
  
 PARAMETER {
   celsius	(degC)
   gbar = 0.0001	(mho/cm2)
-  e= -30	(mV)
+  :e= -30	(mV)
   v50= -73	(mV)
   gfactor = 1
   htaufactor = 4.78
@@ -28,7 +29,8 @@ STATE {
 }
  
 ASSIGNED {
-  ih	  (mA/cm2) 
+  eh (mV)
+  i	  (mA/cm2) 
   hinf
   htau    (ms)
   v	  (mV)
@@ -38,7 +40,7 @@ ASSIGNED {
 PROCEDURE giassign () { 
   : ih=g*h*(v-e)*gfactor 
   g = gbar*h*gfactor
-  ih = g*(v-e)
+  i = g*(v-eh)
 }
  
 BREAKPOINT {

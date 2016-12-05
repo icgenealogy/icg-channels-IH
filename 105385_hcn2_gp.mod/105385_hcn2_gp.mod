@@ -1,10 +1,11 @@
 NEURON {
 	SUFFIX hcn2_gp
 	NONSPECIFIC_CURRENT i
-	RANGE i, ehcn, g, gbar
+	RANGE i, g, gbar
 	GLOBAL a0, b0, ah, bh, ac, bc, aa0, ba0
 	GLOBAL aa0, ba0, aah, bah, aac, bac
 	GLOBAL kon, koff, b, bf, ai, gca, shift
+        GLOBAL eh
 }
 
 UNITS {
@@ -17,7 +18,7 @@ UNITS {
 
 PARAMETER {
 	gbar    = 1		(S/cm2)
-	ehcn    = -20		(mV)
+	:ehcn    = -20		(mV)
 	a0      = .0009		(/ms)		: parameters for alpha and beta
 	b0      = .0004		(/ms)
 	ah      = -95		(mV)
@@ -40,6 +41,7 @@ PARAMETER {
 	q10v    = 4				: q10 value from Magee 1998
 	q10a    = 1.5				: estimated q10 for the cAMP binding reaction
 	celsius			(degC)
+        eh (mV)
 }
 
 ASSIGNED {
@@ -66,7 +68,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE kin METHOD sparse
 	g = gbar*(o + cao*gca)
-	i = g*(v-ehcn)
+	i = g*(v-eh)
 }
 
 KINETIC kin {

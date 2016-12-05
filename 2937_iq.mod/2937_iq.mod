@@ -10,7 +10,7 @@ UNITS {
 PARAMETER {
         dt (ms)
 	v (mV)
-	erevq=-55   (mV)
+	:erevq=-55   (mV)
 	celsius 	(degC)
 	gqbar=.003 (mho/cm2)
         vhalf=-93   (mV)
@@ -22,9 +22,10 @@ PARAMETER {
 
 NEURON {
 	SUFFIX q
-	NONSPECIFIC_CURRENT Iq
+	NONSPECIFIC_CURRENT i
         RANGE Iq,gqbar
         GLOBAL inf,tau
+	GLOBAL eh
 }
 
 STATE {
@@ -32,7 +33,8 @@ STATE {
 }
 
 ASSIGNED {
-	Iq (mA/cm2)
+	eh (mV)
+	i (mA/cm2)
         inf
         tau
 }
@@ -45,7 +47,7 @@ INITIAL {
 
 BREAKPOINT {
 	SOLVE state METHOD cnexp
-	Iq = gqbar*q*(v-erevq)
+	i = gqbar*q*(v-eh)
 
 }
 

@@ -22,8 +22,8 @@ ENDCOMMENT
 NEURON {
 	SUFFIX HCN
 	NONSPECIFIC_CURRENT i
-	RANGE i, igate, gbar, eh
-	GLOBAL ninf, taun
+	RANGE i, igate, gbar
+	GLOBAL ninf, taun, eh
 	GLOBAL gateCurrent, gunit
 }
 
@@ -60,10 +60,11 @@ PARAMETER {
 
 	gbar = 0.0001 (S/cm2)
 	gunit = 0.68 (pS)
-	eh = -30 (mV)
+	:eh = -30 (mV)
 }
 
 ASSIGNED {
+        eh (mV)
 	celsius (degC)
 	v (mV)
 	

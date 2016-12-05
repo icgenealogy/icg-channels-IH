@@ -13,7 +13,7 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 PARAMETER {
 	dt (ms)
 	v (mV)
-	erevq=-35    (mV)
+	:erevq=-35    (mV)
 	celsius = 30 (degC)
 	gqbar=.003   (mho/cm2)
 	vhalf=-88    (mV)
@@ -27,9 +27,10 @@ PARAMETER {
 
 NEURON {
 	SUFFIX qq
-	NONSPECIFIC_CURRENT Iqq
-	RANGE Iqq,gqbar
+	NONSPECIFIC_CURRENT i
+	RANGE gqbar
 	GLOBAL inf,tau
+	GLOBAL eh
 }
 
 STATE {
@@ -37,9 +38,10 @@ STATE {
 }
 
 ASSIGNED {
-	Iqq (mA/cm2)
+	i (mA/cm2)
 	inf
 	tau
+	eh (mV)
 }
 
 INITIAL {
@@ -49,7 +51,7 @@ INITIAL {
 
 BREAKPOINT {
 	SOLVE state
-	Iqq = gqbar*qq*(v-erevq)
+	i = gqbar*qq*(v-eh)
 
 }
 

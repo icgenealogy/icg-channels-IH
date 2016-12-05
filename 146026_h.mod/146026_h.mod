@@ -24,8 +24,8 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 PARAMETER {
 	dt 	   		(ms)
 	v 	   		(mV)
-        ehd=-47 		(mV) 				       
-	gbar=0 (pS/um2)	
+        eh 		(mV) 				       
+	gbar=1.0 (pS/um2)	
 	gamma_ih	:not used
 	seed		:not used
 	vshift = 0
@@ -34,8 +34,9 @@ PARAMETER {
 
 NEURON {
 	SUFFIX ih
-	NONSPECIFIC_CURRENT Iqq
-	RANGE Iqq,gbar,vshift,ehd, qtau, qinf, gq
+	NONSPECIFIC_CURRENT i
+	RANGE gbar,vshift,qtau, qinf, gq
+        GLOBAL eh
 }
 
 STATE {
@@ -43,7 +44,7 @@ STATE {
 }
 
 ASSIGNED {
-	Iqq (mA/cm2)
+	i (mA/cm2)
 	qtau (ms)
 	qinf
 	gq	(pS/um2)
@@ -64,7 +65,7 @@ BREAKPOINT {
 	qinf = alpha(v-vshift)/(alpha(v-vshift) + beta(v-vshift))
 	
 	gq = gbar*qq
-	Iqq = (1e-4)*gq*(v-ehd)
+	i = (1e-4)*gq*(v-eh)
 	
 }
 

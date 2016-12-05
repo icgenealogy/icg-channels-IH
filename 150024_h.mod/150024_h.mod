@@ -5,9 +5,9 @@ ENDCOMMENT
 
 NEURON { 
 	SUFFIX h
-	NONSPECIFIC_CURRENT ih
-	RANGE gbar, ih, eh, m
-	GLOBAL qdeltat
+	NONSPECIFIC_CURRENT i
+	RANGE gbar, m
+	GLOBAL qdeltat, eh
 } 
  
 UNITS { 
@@ -22,7 +22,7 @@ PARAMETER {
 
 ASSIGNED {
 	v (mV)
-	ih (mA/cm2) 
+	i (mA/cm2) 
 	eh (mV)
 	minf
 	taum (ms)
@@ -40,7 +40,7 @@ INITIAL {
  
 BREAKPOINT { 
     SOLVE states METHOD cnexp 
-	ih = gbar * m * m * (v - eh)
+	i = gbar * m * m * (v - eh)
 } 
  
 DERIVATIVE states { 

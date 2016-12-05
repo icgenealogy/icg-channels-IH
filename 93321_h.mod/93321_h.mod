@@ -7,8 +7,9 @@ ENDCOMMENT
 NEURON {
 	SUFFIX h
 	NONSPECIFIC_CURRENT i
-	POINTER gbar
-	RANGE i, Erev
+	:POINTER gbar
+	RANGE i, gbar
+	GLOBAL eh
 }
 
 UNITS {
@@ -18,11 +19,12 @@ UNITS {
 }
 
 PARAMETER {
-	gbar (S/cm2) : = 2e-6	(S/cm2) < 0, 1e9 > : this value gets overwritten by activity dependent regulation
-	Erev = -20 (mV)
+	gbar = 1.0 (S/cm2) : = 2e-6	(S/cm2) < 0, 1e9 > : this value gets overwritten by activity dependent regulation
+	:Erev = -20 (mV)
 }
 
 ASSIGNED {
+        eh (mV)
 	i (mA/cm2)
 	v (mV)
 	g (S/cm2)
@@ -35,7 +37,7 @@ STATE {	m }
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar * m
-	i = g * (v - Erev)
+	i = g * (v - eh)
 }
 
 INITIAL {

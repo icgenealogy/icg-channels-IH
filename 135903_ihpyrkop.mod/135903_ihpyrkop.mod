@@ -24,6 +24,7 @@ NEURON {
 	SUFFIX IhPyrKop
     NONSPECIFIC_CURRENT i
 	RANGE v50, gmax
+    GLOBAL eh
 }
 	
 UNITS {
@@ -33,13 +34,13 @@ UNITS {
 }
 
 PARAMETER {
-    gmax =   0.0  (mS/cm2)
-    eh   = -30.0  (mV)
+    gmax =   1.0  (mS/cm2)
+    :eh   = -30.0  (mV)
     v50  =   0.0 (mV)
 }
     
 ASSIGNED { 
-
+    eh (mV)
     v (mV)
     i (mA/cm2)
 }
@@ -64,4 +65,4 @@ FUNCTION qtau(v(mV))(ms) { qtau = 1.0(ms)/(exp((-14.59(mV)-0.086*v)/1.0(mV)) + e
 :FUNCTION qinf(v(mV))     { qinf = fun2(v, v50, 1, 1.0/0.151)*1(ms) }
 :FUNCTION qtau(v(mV))(ms) { qtau = exp(0.033(/mV)*(v+75))/(0.011*(1+exp(0.083(/mV)*(v+75))))*1(ms)}
 
-INCLUDE "aux_fun.inc"
+INCLUDE "custom_code/inc_files/135903_aux_fun.inc"

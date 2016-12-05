@@ -19,10 +19,11 @@ NEURON {
 
         SUFFIX Golgi_hcn2
         
-	NONSPECIFIC_CURRENT ih
+	NONSPECIFIC_CURRENT i
         
 	RANGE o_fast_inf, o_slow_inf, tau_f, tau_s, gbar, ehcn2, g
         
+	GLOBAL eh
 	:GLOBAL o_fast_inf, o_slow_inf
 }       
         
@@ -43,7 +44,7 @@ PARAMETER {
 
 	gbar = 8e-5   (S/cm2)   < 0, 1e9 >
 
-        ehcn2 = -20 (mV)
+        :ehcn2 = -20 (mV)
 
 	Ehalf = -81.95 (mV)
 	c = 0.1661 (/mV)
@@ -61,7 +62,9 @@ PARAMETER {
 
 ASSIGNED {
 
-	ih		(mA/cm2)
+	eh (mV)
+
+	i		(mA/cm2)
 
         v               (mV)
 
@@ -88,7 +91,7 @@ BREAKPOINT {
 
 	g = gbar * (o_fast + o_slow)
 
-        ih = g * (v - ehcn2)
+        i = g * (v - eh)
 
 }
 

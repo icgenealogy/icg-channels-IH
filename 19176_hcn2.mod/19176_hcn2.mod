@@ -15,6 +15,7 @@ NEURON {
 	NONSPECIFIC_CURRENT i
 	RANGE i, ehcn, g, gbar
 	USEION a READ ai  VALENCE 0
+	GLOBAL eh
 }
 
 UNITS {
@@ -25,7 +26,7 @@ UNITS {
 
 PARAMETER {
 	gbar = 1	(millimho/cm2)
-	ehcn = -40 	(mV)
+	:ehcn = -40 	(mV)
 	a0 = 0.0015	(/ms)		: parameters for alpha and beta
 	b0 = 0.02	(/ms)
 	ah = -135.7    (mV)
@@ -51,6 +52,7 @@ PARAMETER {
 }
 
 ASSIGNED {
+	eh (mV)
 	v	(mV)
 	g	(millimho/cm2)
 	i	(milliamp/cm2)
@@ -67,7 +69,7 @@ INITIAL { SOLVE kin STEADYSTATE sparse }
 BREAKPOINT {
 	SOLVE kin METHOD sparse
 	g = gbar*(o + cao*gca)
-	i = g*(v-ehcn)*(1e-3)
+	i = g*(v-eh)*(1e-3)
 }
 
 KINETIC kin {

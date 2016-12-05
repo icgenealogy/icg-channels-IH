@@ -9,7 +9,7 @@ UNITS {
 
 PARAMETER {
 	v 		(mV)
-	e  		(mV)        
+	eh  		(mV)        
 	celsius 	(degC)
 	gmax=.0001 	(mho/cm2)
 	vhalfl=-90   	(mV)  : very insensitive to this param
@@ -27,8 +27,8 @@ PARAMETER {
 NEURON {
 	SUFFIX ch_HCNp
 	NONSPECIFIC_CURRENT i
-	RANGE gmax, vhalfl, myi, e
-	GLOBAL linf,taul
+	RANGE gmax, vhalfl, myi
+	GLOBAL linf,taul, eh
 }
 
 STATE {
@@ -52,7 +52,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gmax*l
-	i = g*(v-e)
+	i = g*(v-eh)
 	myi = i
 }
 

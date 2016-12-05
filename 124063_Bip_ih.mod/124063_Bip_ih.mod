@@ -6,15 +6,15 @@ TITLE Ih
 
 NEURON {
 	SUFFIX ih
-	NONSPECIFIC_CURRENT ih
-	RANGE ghbar, eh
-	GLOBAL ninf,taun
+	NONSPECIFIC_CURRENT i
+	RANGE ghbar
+	GLOBAL ninf,taun,eh
 }
 
 
 PARAMETER {
 	gbar =  0.0311  	(mho/cm2)
-	eh   = 	-17.7		(mV)            
+	:eh   = 	-17.7		(mV)            
 	v 			(mV)
 }
 
@@ -26,7 +26,8 @@ UNITS {
 } 
 
 ASSIGNED {
-	ih 		(mA/cm2)
+        eh (mV)
+	i 		(mA/cm2)
 	ninf	
 	taun 		(ms)
 }
@@ -36,7 +37,7 @@ STATE { n }
 
 BREAKPOINT {
         SOLVE states METHOD cnexp
-	ih = gbar*(1-(1+3*n)*(1-n)^3)*(v - eh)
+	i = gbar*(1-(1+3*n)*(1-n)^3)*(v - eh)
 } 
 
 INITIAL {

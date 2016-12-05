@@ -12,8 +12,9 @@ UNITS {
 
 NEURON {
  SUFFIX HCN
- NONSPECIFIC_CURRENT ih
+ NONSPECIFIC_CURRENT i
  RANGE gmax, iHCN
+ GLOBAL eh
 }
 
 PARAMETER {
@@ -21,7 +22,7 @@ PARAMETER {
  dt (ms)
  gmax  = 0.001 (mho/cm2)
  iHCN  = 0.0 (mA/cm2)
- e (mV)
+ eh (mV)
 
  theta_m = -76.4 (mV)
  k_m = -3.3 (mV)
@@ -37,15 +38,15 @@ STATE {
 }
 
 ASSIGNED { 
- ih (mA/cm2)
+ i (mA/cm2)
  minf
  taum (ms)
 }
 
 BREAKPOINT {
  SOLVE states METHOD cnexp
- ih  = gmax*m*(v-e)
- iHCN = ih
+ i  = gmax*m*(v-eh)
+ iHCN = i
 }
 
 UNITSOFF

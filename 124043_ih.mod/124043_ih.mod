@@ -22,15 +22,16 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 PARAMETER {
 	dt (ms)
 	v (mV)
-      ehd=-45  			(mV) 		:ih-reversal potential			       
+      eh  			(mV) 		:ih-reversal potential			       
 	ghdbar=0.00015 		(S/cm2)	:default Ih conductance; exponential distribution is set in Ri18init.hoc 
 }
 
 
 NEURON {
 	SUFFIX ih
-	NONSPECIFIC_CURRENT Iqq
-	RANGE Iqq,ghdbar,gamma_ih
+	NONSPECIFIC_CURRENT i
+	RANGE ghdbar,gamma_ih
+        GLOBAL eh
 }
 
 STATE {
@@ -38,7 +39,7 @@ STATE {
 }
 
 ASSIGNED {
-	Iqq (mA/cm2)
+	i (mA/cm2)
 }
 
 INITIAL {
@@ -47,7 +48,7 @@ INITIAL {
 
 BREAKPOINT {
 	SOLVE state METHOD cnexp
-	Iqq = ghdbar*qq*(v-ehd)
+	i = ghdbar*qq*(v-eh)
 }
 
 FUNCTION alpha(v(mV)) {

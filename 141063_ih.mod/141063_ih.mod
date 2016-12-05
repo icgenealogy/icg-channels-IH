@@ -5,6 +5,7 @@ NEURON {
 	SUFFIX ih
 	NONSPECIFIC_CURRENT i
 	RANGE  gbar
+	GLOBAL eh
 }
 
 UNITS { 
@@ -17,10 +18,11 @@ PARAMETER {
 	tau = 100			(ms)
 	z = -0.14		(/mV)
 	V0 = -89		(mV)
-	eh = -30   (mV)
+	:eh = -30   (mV)
 } 
 
-ASSIGNED { 
+ASSIGNED {
+        eh (mV) 
 	g       	(mho/cm2)
 	celsius		(degC)
 	i 		(mA/cm2) 

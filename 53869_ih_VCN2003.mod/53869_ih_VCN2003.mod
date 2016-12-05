@@ -7,10 +7,12 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	SUFFIX ih_VCN2003
-	USEION h READ eh WRITE ih VALENCE 1	
-	RANGE ghbar 
+	:USEION h READ eh WRITE ih VALENCE 1	
+	NONSPECIFIC_CURRENT i
+        RANGE ghbar 
 	RANGE r_inf,tau_r,r_exp
 	RANGE ih,gh
+        GLOBAL eh
 	
 }
 
@@ -22,7 +24,7 @@ UNITS {
 
 PARAMETER {
 	ghbar	= 0.002	(mho/cm2)  
-	eh=-43		(mV) 
+	:eh=-43		(mV) 
 	celsius =22		(degC)
 	dt              (ms)
 	v               (mV)
@@ -34,8 +36,9 @@ STATE {
 }
 
 ASSIGNED {
+         eh (mV)
 	gh	(mho/cm2)
-	ih	(mA/cm2)
+	i	(mA/cm2)
 	r_inf
 	tau_r
 	r_exp
@@ -46,7 +49,7 @@ ASSIGNED {
 BREAKPOINT {
 	SOLVE states
 	gh=ghbar *r
-	ih  = gh*(v-eh)
+	i  = gh*(v-eh)
 }
 
 

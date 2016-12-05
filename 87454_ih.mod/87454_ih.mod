@@ -22,7 +22,7 @@ NEURON {
         NONSPECIFIC_CURRENT i
         RANGE ghbar, gh, ih
         GLOBAL rinf, rtau
-	RANGE eh
+	GLOBAL eh
 }
 
 INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
@@ -32,7 +32,7 @@ PARAMETER {
         celsius = 22 (degC)
         dt (ms)
         ghbar = 0.00318 (mho/cm2) <0,1e9>
-        eh = -43 (mV)
+        :eh = -43 (mV)
 }
 
 STATE {
@@ -40,6 +40,7 @@ STATE {
 }
 
 ASSIGNED {
+        eh (mV)
 	gh (mho/cm2)
 	i (mA/cm2)
 	rinf

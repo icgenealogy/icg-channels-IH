@@ -37,8 +37,8 @@ NEURON {
         SUFFIX pyr
         USEION na READ ena WRITE ina
         USEION k READ ek WRITE ik
-		USEION h READ eh WRITE ih VALENCE 1
-		NONSPECIFIC_CURRENT il
+:		USEION h READ eh WRITE ih VALENCE 1
+		NONSPECIFIC_CURRENT i
 
 		RANGE gna, gk, minf, hinf, ninf		: sodium channels and delayed rectifier
 		GLOBAL mtau, htau, ntau, gnabar, gkbar	: time constants for sodium channels and delayed rectifier
@@ -56,7 +56,7 @@ NEURON {
 		GLOBAL kh_m_tau, kh_n_tau, ghbar
 
 		GLOBAL gl, el							: leak (linear, ohmic with reversal at el)
-		
+		GLOBAL eh		
 		GLOBAL rsf			: rate scale factor for fast transient current
 }
  
@@ -68,13 +68,13 @@ PARAMETER {
         dt (ms)
 		ek (mV)
         ena (mV)
-        gnabar = 0.02857 (mho/cm2)	<0,1e9>
-        gkbar = 0.006667 (mho/cm2)	<0,1e9>
-		gkifbar = 0.0125 (mho/cm2) <0,1e9>
-        gkisbar = 0.0033333 (mho/cm2)
+        gnabar = 0.0 (mho/cm2)	<0,1e9>
+        gkbar = 0.0 (mho/cm2)	<0,1e9>
+		gkifbar = 0.0 (mho/cm2) <0,1e9>
+        gkisbar = 0.0 (mho/cm2)
         ghbar = 0.00025 (mho/cm2) <0,1e9>
 		eh (mV)
-		gl = 0.000250 (mho/cm2)	<0,1e9>
+		gl = 0.0 (mho/cm2)	<0,1e9>
         el = -70 (mV) 
 		mtau = 0.05 (ms) <0.01,100>
 		htau = 0.5 (ms) <0.1,100>
@@ -100,7 +100,7 @@ ASSIGNED {
     ina (mA/cm2)
     ik (mA/cm2)
 	ih (mA/cm2)
-    il (mA/cm2)
+    i (mA/cm2)
     minf hinf
 	ninf 
 	kif_a_inf kif_i_inf
@@ -129,9 +129,9 @@ BREAKPOINT {
 	aih = khm*khn
 	gh = ghbar*aih
 	ik = gk*(v - ek) + gkif*(v - ek) + gkis*(v - ek)
- 	ih = gh*(v - eh)
+ 	i = gh*(v - eh)
 	
-	il = gl*(v - el)
+	:il = gl*(v - el)
 }
 ? currents
 

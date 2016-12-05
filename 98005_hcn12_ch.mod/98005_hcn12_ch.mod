@@ -22,6 +22,7 @@ NEURON {
 	GLOBAL a0, b0, ah, bh, ac, bc, aa0, ba0
 	GLOBAL aa0, ba0, aah, bah, aac, bac
 	GLOBAL kon, koff, b, bf, ai, gca, shift
+	GLOBAL eh
 }
 
 UNITS {
@@ -34,7 +35,7 @@ UNITS {
 
 PARAMETER {
 	gbar    = 1		(S/cm2)
-	ehcn    = -20		(mV)
+	:ehcn    = -20		(mV)
 	a0      = .006		(/ms)	: parameters for alpha and beta
 	b0      = .0008		(/ms)
 	ah      = -96		(mV)
@@ -60,6 +61,7 @@ PARAMETER {
 }
 
 ASSIGNED {
+	eh (mV)
 	v	(mV)
 	g	(S/cm2)
 	i	(mA/cm2)
@@ -83,7 +85,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE kin METHOD sparse
 	g = gbar*(o + cao*gca)
-	i = g*(v-ehcn)
+	i = g*(v-eh)
 }
 
 KINETIC kin {

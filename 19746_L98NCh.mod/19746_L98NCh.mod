@@ -20,15 +20,15 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
     SUFFIX L98NCh
-    NONSPECIFIC_CURRENT ih
-        RANGE ghbar,gh,ih
-        GLOBAL ninf,linf,taul,taun,alphan,betan,alphal,betal,t0l
+    NONSPECIFIC_CURRENT i
+        RANGE ghbar
+        GLOBAL ninf,linf,taul,taun,alphan,betan,alphal,betal,t0l, eh
 }
 
 PARAMETER {
         dt (ms)
     v (mV)
-        eh=-17 (mV)
+        :eh=-17 (mV)
     celsius = 32    (degC)
     ghbar=7.8e-5 (mho/cm2)
         vhalfn=0   (mV)
@@ -48,7 +48,8 @@ STATE {
 }
 
 ASSIGNED {
-    ih (mA/cm2)
+    eh (mV)
+    i (mA/cm2)
         gh (mho/cm2)
         ninf
         linf
@@ -70,7 +71,7 @@ INITIAL {
 BREAKPOINT {
     SOLVE states
     gh = ghbar*l
-    ih = gh*(v-eh)
+    i = gh*(v-eh)
 }
 
 

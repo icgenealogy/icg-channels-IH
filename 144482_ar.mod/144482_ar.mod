@@ -16,13 +16,15 @@ NEURON {
 	SUFFIX ar
 	NONSPECIFIC_CURRENT i
 	RANGE gbar, i
+	GLOBAL eh
 }
 PARAMETER { 
-	gbar = 0.0 	(mho/cm2)
+	gbar = 1.0 	(mho/cm2)
 	v		(mV) 
-	erev = -35	(mV)  
+	:erev = -35	(mV)  
 } 
 ASSIGNED { 
+ 	eh (mV)
 	i 		(mA/cm2) 
 	minf 		(1)
 	mtau 		(ms) 
@@ -32,7 +34,7 @@ STATE {
 }
 BREAKPOINT { 
 	SOLVE states METHOD cnexp
-	i = gbar * m * ( v - erev ) 
+	i = gbar * m * ( v - eh ) 
 } 
 INITIAL { 
 	settables(v) 

@@ -4,7 +4,7 @@ NEURON {
 	SUFFIX h
 	NONSPECIFIC_CURRENT i
         RANGE ghbar
-        GLOBAL qinf,tauh,ratetau
+        GLOBAL qinf,tauh,ratetau,eh
 }
 
 UNITS {
@@ -15,7 +15,7 @@ UNITS {
 
 PARAMETER {
 	v 		(mV)
-      eh  =-40	(mV)        
+      :eh  =-40	(mV)        
 	ghbar=.0001 	(mho/cm2)
 	ratetau=1
 }
@@ -25,6 +25,7 @@ STATE {
 }
 
 ASSIGNED {
+      eh (mV)
 	i (mA/cm2)
       qinf      
       tauh

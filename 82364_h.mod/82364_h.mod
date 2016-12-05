@@ -3,8 +3,8 @@ TITLE I-h channel from Magee 1998
 NEURON {
 	SUFFIX hd
 	NONSPECIFIC_CURRENT i
-    RANGE ghdbar, vhalfl, ghd, i, kl
-    GLOBAL qtl
+    RANGE ghdbar, vhalfl, ghd, kl
+    GLOBAL qtl,eh
 }
 UNITS {
 	(mA) = (milliamp)
@@ -14,7 +14,7 @@ UNITS {
 
 PARAMETER {
 	v 				(mV)
-    ehd  			(mV)
+    eh  			(mV)
 	celsius 		(degC)
 	ghdbar=.0001 	(mho/cm2)
     vhalfl=-81   	(mV)
@@ -47,7 +47,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	ghd = ghdbar*l
-	i = ghd*(v-ehd)
+	i = ghd*(v-eh)
 }
 
 DERIVATIVE states {

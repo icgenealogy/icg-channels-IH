@@ -4,9 +4,11 @@ NEURON
 {
 	SUFFIX h
 	
-	NONSPECIFIC_CURRENT ih
+	NONSPECIFIC_CURRENT i
 	
-	RANGE ghbar, gh, eh 
+	RANGE ghbar, gh
+
+	GLOBAL eh
          
 
 }
@@ -24,7 +26,7 @@ PARAMETER
    
        : h channel
         ghbar = 3.5 (mS/cm2) <0,1e9>
-        eh  = -32.5 (mV)
+        :eh  = -32.5 (mV)
        
        
         
@@ -39,9 +41,10 @@ STATE
 
 ASSIGNED
 {
+	eh (mV)
 	v (mV)
 	
-	ih (mA/cm2)
+	i (mA/cm2)
 	
 	infh
 	tauh   (ms)
@@ -63,7 +66,7 @@ BREAKPOINT
 {
 	SOLVE states METHOD cnexp
 	gh  = (0.001)*ghbar*(1-(1+3*nh)*(1-nh)^3)
-	ih  = gh*(v - eh)
+	i  = gh*(v - eh)
 	
 	: the current is in the unit of mA/cm2
 	

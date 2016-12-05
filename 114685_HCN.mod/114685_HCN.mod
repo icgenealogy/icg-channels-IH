@@ -20,16 +20,16 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
     SUFFIX Ih
-    NONSPECIFIC_CURRENT ih
+    NONSPECIFIC_CURRENT i
     RANGE gh
-    GLOBAL eih
+    GLOBAL eh
 }
 
 PARAMETER {
     v (mV)
     dt (ms)
     gh    = 0.001 (mho/cm2)
-    eih   = -56.11 (mV)
+    :eih   = -56.11 (mV)
     celsius
 }
 
@@ -38,14 +38,15 @@ STATE {
 }
 
 ASSIGNED { 
-    ih (mA/cm2)
+    eh (mV)
+    i (mA/cm2)
     finf  
     ftau (ms)
 }
 
 BREAKPOINT {
     SOLVE integrate METHOD cnexp
-    ih = gh*f*(v-eih)
+    i = gh*f*(v-eh)
 }
 
 UNITSOFF

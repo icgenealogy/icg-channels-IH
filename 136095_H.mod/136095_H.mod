@@ -14,12 +14,14 @@ UNITS {
 NEURON {
     SUFFIX H
     GLOBAL eh, VhlfMaxm, minf
-    USEION other WRITE iother VALENCE 1.0
-    RANGE i,g,gmax,slopem,taum
+    :USEION other WRITE iother VALENCE 1.0
+    NONSPECIFIC_CURRENT i
+    RANGE g,gmax,slopem,taum
     THREADSAFE
 }
 
 ASSIGNED { 
+  eh (mV)
   i (mA/cm2)
   v (mV)
   g (mho/cm2)
@@ -32,7 +34,7 @@ STATE {
 }
 
 PARAMETER {
-  eh = -20 (mV)
+  :eh = -20 (mV)
   gmax  = 5e-07 (mho/cm2)
   VhlfMaxm = -74
   slopem = -10

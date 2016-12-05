@@ -22,8 +22,8 @@ PARAMETER {
 NEURON {
 	SUFFIX hpg
 	NONSPECIFIC_CURRENT i
-        RANGE ghbar, eh
-        GLOBAL linf,taul
+        RANGE ghbar
+        GLOBAL linf,taul, eh
 }
 
 STATE {

@@ -20,8 +20,8 @@ ENDCOMMENT
 NEURON {
 	SUFFIX Ih
 	NONSPECIFIC_CURRENT i
-	RANGE i, ghbar, eh
-	GLOBAL ninf, taun
+	RANGE i, ghbar
+	GLOBAL ninf, taun, eh
 }
 
 UNITS {
@@ -47,10 +47,11 @@ PARAMETER {
 	celsius (degC)
 	
 	ghbar = 0.0002 (S/cm2)
-	eh = -30 (mV)
+	:eh = -30 (mV)
 }
 
 ASSIGNED {
+        eh (mV)
 	i (mA/cm2)
 	qt
 	ninf

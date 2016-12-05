@@ -5,8 +5,9 @@ NEURON {
 	SUFFIX h
         RANGE  gbar,vhalf, K, taun, ninf, g, ihi
 :	USEION na READ ena WRITE ina      
-	USEION hi READ ehi WRITE ihi VALENCE 1      
-:	NONSPECIFIC_CURRENT i
+:	USEION hi READ ehi WRITE ihi VALENCE 1      
+	NONSPECIFIC_CURRENT i
+	GLOBAL eh
 }
 
 UNITS {
@@ -23,12 +24,12 @@ UNITS {
 PARAMETER {              : parameters that can be entered when function is called in cell-setup
 :        dt             (ms)
 :	v              (mV)
-        ena    = 55    (mV)
+:        ena    = 55    (mV)
 :        eh     = -10   (mV)
 :        ehi     = -30   (mV)
-        ehi     = -10   (mV)
+:        ehi     = -10   (mV)
 	K      = 10.0   (mV)	:8.5
-	gbar   = 0     (mho/cm2)  : initialize conductance to zero
+	gbar   = 1.0     (mho/cm2)  : initialize conductance to zero
 	vhalf  = -90   (mV)       : half potential
 }	
 
@@ -40,10 +41,11 @@ STATE {                : the unknown parameters to be solved in the DEs
 ASSIGNED {             : parameters needed to solve DE
         v 
 :	ina (mA/cm2)
-	ihi (mA/cm2)
+	i (mA/cm2)
 	ninf
 	taun (ms)
 	g
+        eh (mV)
 }
 
         
@@ -54,7 +56,7 @@ INITIAL {               : initialize the following parameter using states()
 	n = ninf
 	g = gbar*n
 :	ina = g*(v-eh)
-	ihi = g*(v-ehi)
+	i = g*(v-eh)
 }
 
 
@@ -62,7 +64,7 @@ BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar*n
 :	ina = g*(v-eh)  
-	ihi = g*(v-ehi)  
+	i = g*(v-eh)  
 }
 
 DERIVATIVE states {

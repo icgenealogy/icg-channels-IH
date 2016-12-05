@@ -12,9 +12,10 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	SUFFIX iar
-	USEION other WRITE iother VALENCE 1
-        RANGE ghbar, shift
-	GLOBAL h_inf, tau_h, erev, stp
+	:USEION other WRITE iother VALENCE 1
+        NONSPECIFIC_CURRENT i
+	RANGE ghbar, shift
+	GLOBAL h_inf, tau_h, stp, eh
 }
 
 UNITS {
@@ -28,7 +29,7 @@ UNITS {
 
 PARAMETER {
         v               (mV)
-	erev	= -44	(mV)
+	:erev	= -44	(mV)
 	celsius = 36	(degC)
 	ghbar	= .0008 (mho/cm2)
         shift   = -6    (mV)
@@ -42,8 +43,9 @@ STATE {
 
 
 ASSIGNED {
+        eh (mV)
 	i	(mA/cm2)
-	iother 	(mA/cm2)
+	:iother 	(mA/cm2)
 	h_inf
 	tau_h	(ms)
 	tadj
@@ -52,7 +54,7 @@ ASSIGNED {
 
 BREAKPOINT {
 	SOLVE state METHOD cnexp
-	iother = ghbar * h * (v - erev)
+	i = ghbar * h * (v - eh)
 }
 
 DERIVATIVE state  {

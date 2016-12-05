@@ -20,8 +20,8 @@ UNITS {
 NEURON {
         SUFFIX ih
         NONSPECIFIC_CURRENT i
-        RANGE ghbar, gh, ih
-        GLOBAL rinf, rtau
+        RANGE ghbar, gh
+        GLOBAL rinf, rtau, eh
 }
 
 INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}

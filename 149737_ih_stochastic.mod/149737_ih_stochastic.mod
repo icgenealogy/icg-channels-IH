@@ -25,7 +25,7 @@ UNITS {
 
 PARAMETER {
 	v 			(mV)
-	ehd=-45  		(mV) 		:ih-reversal potential			       
+	eh  		(mV) 		:ih-reversal potential			       
 	ghdbar=0.00015 		(S/cm2)		:default Ih conductance; exponential distribution is set in Ri18init.hoc 
 	gamma=680e-15		(S)		:single channel cond
 	seed
@@ -35,7 +35,7 @@ PARAMETER {
 NEURON {
 	SUFFIX ih
 	NONSPECIFIC_CURRENT i
-	RANGE ghdbar,N,N_open
+	RANGE ghdbar,N,N_open,eh
 }
 
 STATE {
@@ -61,7 +61,7 @@ INITIAL {								:calculates the number of Ih-channel per segment and the number
 
 BREAKPOINT {
 	SOLVE states METHOD cnexp					:only needed to make the proc noise() be evaluated once per dt (breakpoint() is evaluated twice per dt!)
-	i = ((N_open*gamma)/(1e-8*area))*(v-ehd)			:cond/cm2 * delta_pot		(cond=N_open*gamma in S)
+	i = ((N_open*gamma)/(1e-8*area))*(v-eh)			:cond/cm2 * delta_pot		(cond=N_open*gamma in S)
 }
 
 

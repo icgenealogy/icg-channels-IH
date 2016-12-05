@@ -5,20 +5,22 @@ TITLE HDEND
 
 NEURON {
 	SUFFIX hdend
-	USEION na READ ena WRITE ina
-	USEION k  READ ek  WRITE ik
+	:USEION na READ ena WRITE ina
+	:USEION k  READ ek  WRITE ik
+	NONSPECIFIC_CURRENT i
 	RANGE gbar
 	RANGE ninf, ntau
+	GLOBAL eh
 
 	GLOBAL vhalf_n, vsteep_n, exp_n 
 	GLOBAL tskew_n, tscale_n, toffset_n 
 
 }
 
-INCLUDE "noinact_nak_currs.inc"
+INCLUDE "custom_code/inc_files/84589_noinact_nak_currs.inc"
 
-INCLUDE "noinact_gate_states.inc"
+INCLUDE "custom_code/inc_files/84589_hdend_noinact_gate_states.inc"
 
-INCLUDE "var_funcs.inc"
+INCLUDE "custom_code/inc_files/84589_var_funcs.inc"
 
 

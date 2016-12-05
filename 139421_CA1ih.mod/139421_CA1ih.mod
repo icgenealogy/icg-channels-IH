@@ -8,15 +8,16 @@ UNITS {
  
 NEURON {
   SUFFIX hcurrent
-  NONSPECIFIC_CURRENT ih
-  RANGE g, e, v50, htau, hinf
+  NONSPECIFIC_CURRENT i
+  RANGE g, v50, htau, hinf
   RANGE gfactor
+  GLOBAL eh
 }
  
 PARAMETER {
   celsius	(degC)
   g= 0.0001	(mho/cm2)
-  e= -30	(mV)
+  :e= -30	(mV)
   v50=-82	(mV)
   gfactor = 1
 }
@@ -26,13 +27,14 @@ STATE {
 }
  
 ASSIGNED {
-  ih	  (mA/cm2) 
+  eh (mV)
+  i	  (mA/cm2) 
   hinf
   htau    (ms)
   v	  (mV)
 }
 
-PROCEDURE iassign () { ih=g*h*(v-e)*gfactor }
+PROCEDURE iassign () { i=g*h*(v-eh)*gfactor }
  
 BREAKPOINT {
   SOLVE states METHOD cnexp

@@ -8,7 +8,7 @@ UNITS {
 
 PARAMETER {
 	v 		(mV)
-      ehd=-30  		(mV)        
+      eh  		(mV)        
 	ghdbar=0.001	(mho/cm2) :  must be explicitly def. in hoc
 	vh=-95 (mV) : must be explicitly def. in hoc
 	tc : must be explicitly def. in hoc
@@ -23,7 +23,7 @@ NEURON {
 	SUFFIX hd
 	NONSPECIFIC_CURRENT i
         RANGE ghdbar
-        GLOBAL linf,taul, vh, tc
+        GLOBAL linf,taul, vh, tc,eh
 }
 
 STATE {
@@ -46,7 +46,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	ghd = ghdbar*l
-	i = ghd*(v-ehd)
+	i = ghd*(v-eh)
 
 }
 

@@ -9,9 +9,10 @@ UNITS {
  
 NEURON {
         SUFFIX Ih
-        USEION h READ eh WRITE ih VALENCE 1
-        RANGE gkhbar,ih
-        GLOBAL rinf, rexp, tau_r
+        :USEION h READ eh WRITE ih VALENCE 1
+        NONSPECIFIC_CURRENT i
+	RANGE gkhbar
+        GLOBAL rinf, rexp, tau_r, eh
 }
  
 INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
@@ -20,8 +21,8 @@ PARAMETER {
         v (mV)
         p = 5 (degC)
         dt (ms)
-        gkhbar = 0.00 (mho/cm2)			
-        eh = -32.9 (mV)
+        gkhbar = 1.00 (mho/cm2)			
+        :eh = -32.9 (mV)
 }
  
 STATE {
@@ -29,14 +30,15 @@ STATE {
 }
  
 ASSIGNED {
-        ih (mA/cm2)
+	eh (mV)
+        i (mA/cm2)
 	rinf rexp
 	tau_r
 }
  
 BREAKPOINT {
         SOLVE deriv METHOD derivimplicit
-        ih = gkhbar*r*(v - eh)
+        i = gkhbar*r*(v - eh)
 }
  
 INITIAL {

@@ -5,9 +5,10 @@ NEURON
 	SUFFIX h
 	
 	
-	NONSPECIFIC_CURRENT ih
+	NONSPECIFIC_CURRENT i
 	RANGE  gh, ghbar,  Vhalfh, Sh
-	RANGE  eh, aoh
+	RANGE  aoh
+        GLOBAL eh
 	
 	
 
@@ -25,7 +26,7 @@ PARAMETER
 	
 	ghbar = 2.5 (mS/cm2) <0,1e9>
 	
-        eh  = -32 (mV)
+        :eh  = -32 (mV)
        
         Vhalfh=-82  (mV)
        
@@ -47,9 +48,10 @@ STATE
 
 ASSIGNED
 {
+	eh (mV)
 	v (mV)
 	
-	ih (mA/cm2)
+	i (mA/cm2)
 	
 	infh
 	tauh   (ms)
@@ -73,7 +75,7 @@ BREAKPOINT
 	SOLVE states METHOD cnexp
 	
 	gh  = (0.001)*ghbar*nh
-	ih  = gh*(v - eh)
+	i  = gh*(v - eh)
 	
 	
 }

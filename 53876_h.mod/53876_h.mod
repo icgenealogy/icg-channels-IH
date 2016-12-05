@@ -6,8 +6,9 @@ ENDCOMMENT
 NEURON {
 	SUFFIX h
 	NONSPECIFIC_CURRENT i
-	RANGE i, Erev, gbar
+	RANGE gbar
 	GLOBAL taun_fixed
+	GLOBAL eh
 }
 
 UNITS {
@@ -18,11 +19,12 @@ UNITS {
 
 PARAMETER {
 	gbar = 110e-6	(S/cm2) < 0, 1e9 >
-	Erev = -46 (mV)
+	:Erev = -46 (mV)
 	taun_fixed = 50 (ms)
 }
 
 ASSIGNED {
+	eh (mV)
 	i (mA/cm2)
 	v (mV)
 	g (S/cm2)
@@ -34,7 +36,7 @@ STATE {	n }
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar * n
-	i = g * (v - Erev)
+	i = g * (v - eh)
 }
 
 INITIAL {

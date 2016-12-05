@@ -4,8 +4,8 @@ NEURON
 {
 	SUFFIX hyper
 	
-	NONSPECIFIC_CURRENT ihyper
-	
+	NONSPECIFIC_CURRENT i
+	GLOBAL eh
 	RANGE ghyperbar, ghyper, ehyper 
          
 
@@ -40,8 +40,8 @@ STATE
 ASSIGNED
 {
 	v (mV)
-	
-	ihyper (mA/cm2)
+	eh (mV)
+	i (mA/cm2)
 	
 	infhyper
 	tauhyper   (ms)
@@ -63,7 +63,7 @@ BREAKPOINT
 {
 	SOLVE states METHOD cnexp
 	ghyper  = (0.001)*ghyperbar*(1-(1+3*nhyper)*(1-nhyper)^3)
-	ihyper  = ghyper*(v - ehyper)
+	i  = ghyper*(v - eh)
 	
 	: the current is in the unit of mA/cm2
 	

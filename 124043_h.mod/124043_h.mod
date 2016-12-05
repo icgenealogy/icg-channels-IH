@@ -8,7 +8,7 @@ UNITS {
 
 PARAMETER {
 	v 		(mV)
-      ehd  =-34	(mV)        
+      eh	(mV)        
 	celsius=33 	(degC)
 	ghdbar=.0001 	(mho/cm2)
       vhalfl=-81   	(mV)
@@ -27,7 +27,7 @@ NEURON {
 	SUFFIX hd
 	NONSPECIFIC_CURRENT i
         RANGE ghdbar, vhalfl,tau
-        GLOBAL linf,taul
+        GLOBAL linf,taul,eh
 }
 
 STATE {
@@ -50,7 +50,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	ghd = ghdbar*l
-	i = ghd*(v-ehd)
+	i = ghd*(v-eh)
 
 }
 

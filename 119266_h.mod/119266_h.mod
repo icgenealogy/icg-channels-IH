@@ -5,9 +5,10 @@ TITLE  H-current that uses Na ions
 
 NEURON {
 	SUFFIX h
-	USEION na READ ena WRITE ina      
+	:USEION na READ ena WRITE ina      
         RANGE  gbar,vhalf, K, taun, ninf,ina
-:	NONSPECIFIC_CURRENT i
+	NONSPECIFIC_CURRENT i
+	GLOBAL eh
 }
 
 UNITS {
@@ -18,16 +19,16 @@ UNITS {
 }
 
 PARAMETER {              : parameters that can be entered when function is called in cell-setup
-        eh     = -10   (mV)
+        :eh     = -10   (mV)
 	K      = 8.5   (mV)
-	gbar   = 0     (mho/cm2)  : initialize conductance to zero
+	gbar   = 1.0     (mho/cm2)  : initialize conductance to zero
 	vhalf  = -90   (mV)       : half potential
 }	
 
 ASSIGNED {             : parameters needed to solve DE
 	v              (mV)
-        ena            (mV)
-	ina            (mA/cm2)
+        eh            (mV)
+	i            (mA/cm2)
 	ninf
 	taun           (ms)
 }
@@ -45,7 +46,7 @@ INITIAL {               : initialize the following parameter using states()
 
 BREAKPOINT {
 	SOLVE states METHOD cnexp
-	ina = gbar*n*(v-eh)            
+	i = gbar*n*(v-eh)            
 }
 
 DERIVATIVE states {

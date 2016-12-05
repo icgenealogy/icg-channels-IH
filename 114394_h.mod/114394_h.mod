@@ -22,7 +22,7 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 PARAMETER {
 	dt 	   		(ms)
 	v 	   		(mV)
-        ehd=-47 		(mV) 				       
+        eh 		(mV) 				       
 	ghdbar=0.00015 (mho/cm2)	
 	gamma_ih	:not used
 	seed		:not used
@@ -31,8 +31,9 @@ PARAMETER {
 
 NEURON {
 	SUFFIX ih
-	NONSPECIFIC_CURRENT Iqq
-	RANGE Iqq,ghdbar
+	NONSPECIFIC_CURRENT i
+	RANGE ghdbar
+        GLOBAL eh
 }
 
 STATE {
@@ -40,7 +41,7 @@ STATE {
 }
 
 ASSIGNED {
-	Iqq (mA/cm2)
+	i (mA/cm2)
 }
 
 INITIAL {
@@ -49,7 +50,7 @@ INITIAL {
 
 BREAKPOINT {
 	SOLVE state METHOD cnexp
-	Iqq = ghdbar*qq*(v-ehd)
+	i = ghdbar*qq*(v-eh)
 }
 
 FUNCTION alpha(v(mV)) {

@@ -15,7 +15,7 @@ NEURON {
     SUFFIX ih
     NONSPECIFIC_CURRENT i
     RANGE i, gslow, gfast, gslowbar, gfastbar
-    GLOBAL ehcn, taufn, taufdo, taufdd, taufro, taufrd
+    GLOBAL eh, taufn, taufdo, taufdd, taufro, taufrd
     GLOBAL tausn, tausdo, tausdd, tausro, tausrd
     GLOBAL mifo, mifd, mife, miso, misd, mise
 }
@@ -29,7 +29,7 @@ UNITS {
 PARAMETER {
     gfastbar = 9.8e-5    (S/cm2)
     gslowbar = 5.3e-5    (S/cm2)
-    ehcn    = -20        (mV)
+    :ehcn    = -20        (mV)
     taufn   = 0.51       (ms)    : original: .51 parameters for tau_fast
     taufdo  = 1.7        (mV)
     taufdd  = 10         (mV)
@@ -57,6 +57,7 @@ ASSIGNED {
     betaf    (/ms)        : beta_fast
     alphas   (/ms)        : alpha_slow
     betas    (/ms)        : beta_slow
+    eh (mV)
 }
 
 INITIAL {
@@ -70,7 +71,7 @@ BREAKPOINT {
     SOLVE states METHOD cnexp
     gfast = gfastbar*mf
     gslow = gslowbar*ms
-    i = (gfast+gslow)*(v-ehcn)
+    i = (gfast+gslow)*(v-eh)
 }
 
 STATE {

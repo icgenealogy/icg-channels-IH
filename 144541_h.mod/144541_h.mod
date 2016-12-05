@@ -10,7 +10,7 @@ UNITS {
 
 PARAMETER {
 	v 		(mV)
-        ehd  		(mV)        
+        eh  		(mV)        
 	celsius 	(degC)
 	ghdbar=.0001 	(mho/cm2)
         vhalfl=-90   	(mV)
@@ -27,7 +27,7 @@ PARAMETER {
 
 
 NEURON {
-	THREADSAFE SUFFIX hd
+	SUFFIX hd
 	NONSPECIFIC_CURRENT i
 	NONSPECIFIC_CURRENT lk
         RANGE ghdbar, vhalfl, elk, clk, glk
@@ -57,7 +57,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	ghd = ghdbar*l
-	i = ghd*(v-ehd)
+	i = ghd*(v-eh)
 	lk = clk*ghdbar*(v-elk)
 }
 

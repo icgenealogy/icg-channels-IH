@@ -16,9 +16,10 @@ ENDCOMMENT
 
 NEURON {
         SUFFIX Golgi_hcn1
-	NONSPECIFIC_CURRENT ih
-	RANGE o_fast_inf, o_slow_inf, tau_f, tau_s, Erev
+	NONSPECIFIC_CURRENT i
+	RANGE o_fast_inf, o_slow_inf, tau_f, tau_s
 	RANGE gbar,r,g
+        GLOBAL eh
 }       
         
 UNITS {
@@ -31,7 +32,7 @@ UNITS {
 PARAMETER {
 	celsius  (degC)
 	gbar = 5e-5   (S/cm2)
-        Erev = -20 (mV)
+        :Erev = -20 (mV)
 	q_10 = 3
 
 	Ehalf = -72.49 (mV)
@@ -48,7 +49,8 @@ PARAMETER {
 }
 
 ASSIGNED {
-	ih		(mA/cm2)
+        eh (mV)
+	i		(mA/cm2)
         v               (mV)
 	g		(S/cm2)
 	o_fast_inf
@@ -65,7 +67,7 @@ STATE {	o_fast o_slow }
 BREAKPOINT {
 	SOLVE state METHOD cnexp
 	g = gbar * (o_fast + o_slow)
-        ih = g * (v - Erev)
+        i = g * (v - eh)
 }
 
 DERIVATIVE state {	

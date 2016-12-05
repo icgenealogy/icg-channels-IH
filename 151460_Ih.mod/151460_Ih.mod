@@ -28,16 +28,16 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	SUFFIX Ih
-	NONSPECIFIC_CURRENT ih
+	NONSPECIFIC_CURRENT i
 	RANGE gk
-	GLOBAL eih,activate_Q10,Q10,gmaxQ10,rate_k,gmax_k,temp1,temp2,tempb
+	GLOBAL eh,activate_Q10,Q10,gmaxQ10,rate_k,gmax_k,temp1,temp2,tempb
 }
 
 PARAMETER {
         v (mV)
 	dt (ms)
 	gk    = 0.001 (mho/cm2)
-	eih   = -5.611047394e+01 (mV)
+	:eih   = -5.611047394e+01 (mV)
 	celsius
 
 	activate_Q10 = 1
@@ -52,8 +52,9 @@ STATE {
         f
 }
 
-ASSIGNED { 
-        ih (mA/cm2)
+ASSIGNED {
+        eh (mV) 
+        i (mA/cm2)
 	finf  
 	ftau (ms)
 	rate_k
@@ -62,7 +63,7 @@ ASSIGNED {
 
 BREAKPOINT {
 	SOLVE integrate METHOD cnexp
-	ih = (gk*gmax_k)*f*(v-eih)
+	i = (gk*gmax_k)*f*(v-eh)
 }
 
 UNITSOFF

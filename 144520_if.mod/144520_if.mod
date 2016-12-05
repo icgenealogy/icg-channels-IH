@@ -4,21 +4,23 @@ COMMENT
     modified for Neuron by FE GANNIER
 	francois.gannier@univ-tours.fr (University of TOURS)
 ENDCOMMENT
-INCLUDE "Unit.inc"
-INCLUDE "Volume.inc"
+INCLUDE "custom_code/inc_files/144520_Unit.inc"
+INCLUDE "custom_code/inc_files/144520_Volume.inc"
 NEURON {
 	SUFFIX ifun
-	USEION k READ ek, ko WRITE ik
-	USEION na READ ena WRITE ina
-	
-	RANGE gK, gNa, ifun, ik, ina
+	:USEION k READ ek, ko WRITE ik
+	:USEION na READ ena WRITE ina
+	NONSPECIFIC_CURRENT i
+	RANGE gK, gNa, i, ik, ina
 	GLOBAL minf, mtau 
+	GLOBAL eh
 }
 
 PARAMETER {
 	gK = 3	(uS)
 	gNa= 3	(uS)
 	Kmf = 45	(mM)
+	ko = 3.3152396 (mM)
 }
 
 STATE { : y
@@ -30,12 +32,13 @@ ASSIGNED {
 	celsius (degC) : 37
 	ik (mA/cm2)
 	ina (mA/cm2)
-	ifun (mA/cm2)
+	i (mA/cm2)
 	minf 
 	mtau (ms)  
-	ek (mV)
-	ena (mV)
-	ko (mM)
+	:ek (mV)
+	:ena (mV)
+	:ko (mM)
+	eh (mV)
 }
 
 INITIAL {
@@ -47,11 +50,12 @@ BREAKPOINT { LOCAL kc, ifk, ifna
 	SOLVE states METHOD derivimplicit
 : if = m * ifmax = m * (inafmax + ikfmax)
 	kc = m * (ko/(ko+Kmf))
-	ifna = (1e-06)*kc * (gNa/S*(v-ena))
-	ifk  = (1e-06)*kc * (gK/S*(v-ek))
-	ik = ifk
-	ina = ifna
-	ifun = ifk + ifna
+	:ifna = (1e-06)*kc * (gNa/S*(v-ena))
+	:ifk  = (1e-06)*kc * (gK/S*(v-ek))
+	:ik = ifk
+	:ina = ifna
+	:i = ifk + ifna
+	i = (1e-06)*kc*(gNa/S + gK/S)*(v-eh)
 }
 
 DERIVATIVE states {

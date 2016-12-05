@@ -11,7 +11,7 @@ UNITS {
 
 PARAMETER {
 	v 		(mV)
-        eih = -38	(mV)        
+        eh	(mV)        
 	celsius 	(degC)
 	gbar = 1e-4 	(mho/cm2)
         vhalf = -72   	(mV)
@@ -31,6 +31,7 @@ NEURON {
 	GLOBAL gbar, vhalf, vslope1, vslope2, tmc1, tmc2, linf, taul
 	RANGE jiih
 	THREADSAFE linf, taul
+	GLOBAL eh
 }
 
 STATE {
@@ -53,7 +54,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	ghd = gbar*l
-	i = ghd*(v-eih)
+	i = ghd*(v-eh)
 	jiih = i
 }
 

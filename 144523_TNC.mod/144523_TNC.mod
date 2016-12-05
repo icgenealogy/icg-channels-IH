@@ -7,6 +7,7 @@ NEURON {
 	SUFFIX TNC 
 	NONSPECIFIC_CURRENT i
 	RANGE gbar, i, eTNC
+	GLOBAL eh
 } 
  
 UNITS { 
@@ -19,11 +20,12 @@ PARAMETER {
 } 
 
 ASSIGNED {
+        eh (mV)
 	v (mV)
-	eTNC (mV) : set eTNC to -35 (mV) from hoc
+	:eTNC (mV) : set eTNC to -35 (mV) from hoc
     i (mA/cm2)
 } 
  
 BREAKPOINT { 
-	i = gbar * (v - eTNC)
+	i = gbar * (v - eh)
 } 
