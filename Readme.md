@@ -2,6 +2,7 @@
 Repository for channel models of the IH class
 
 ## Channels
+* 8: [101629_h.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/101629_h.mod)
 * 21: [102288_Ih.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/102288_Ih.mod)
 * 39: [105385_hcn12_gp.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/105385_hcn12_gp.mod)
 * 40: [105385_hcn2_gp.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/105385_hcn2_gp.mod)
@@ -195,7 +196,6 @@ Repository for channel models of the IH class
 * 3472: [97917_hyperde3_icgIH2.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/97917_hyperde3_icgIH2.mod)
 * 3473: [149174_hyperde3_icgIH2.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/149174_hyperde3_icgIH2.mod)
 * 3474: [64229_hyperde3_icgIH2.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/64229_hyperde3_icgIH2.mod)
-* 8: [101629_h.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/101629_h.mod)
 * 3589: [155735_ihpkj_cn.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/155735_ihpkj_cn.mod)
 * 3590: [155735_ihpkj.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/155735_ihpkj.mod)
 * 3591: [156780_Ih.mod](https://github.com/icgenealogy/icg-channels-ih/blob/master/156780_Ih.mod)
