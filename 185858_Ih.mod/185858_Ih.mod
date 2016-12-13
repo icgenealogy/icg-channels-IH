@@ -71,10 +71,11 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
   SUFFIX iar
-  USEION h READ eh WRITE ih VALENCE 1
+  :USEION h READ eh WRITE ih VALENCE 1
+  NONSPECIFIC_CURRENT i
   USEION ca READ cai
   RANGE ghbar, m, o1, o2, p0, p1, k2, alpha, beta
-  GLOBAL cac, k4, Pc, nca, nexp, ginc, qt, origtemp
+  GLOBAL cac, k4, Pc, nca, nexp, ginc, qt, origtemp,eh
 }
 
 UNITS {
@@ -86,7 +87,7 @@ UNITS {
 }
 
 PARAMETER {
-  eh = -20	(mV)
+  :eh = -20	(mV)
   celsius = 37	(degC)
   ghbar	= 2e-5 (mho/cm2)
   cac = 0.006 (mM)		: half-activation of calcium dependence
@@ -110,9 +111,10 @@ STATE {
 }
 
 ASSIGNED {
+  eh (mV)
   v	(mV)
   cai	(mM)
-  ih	(mA/cm2)
+  i	(mA/cm2)
   gh	(mho/cm2)
   alpha	(1/ms)
   beta	(1/ms)
@@ -125,7 +127,7 @@ ASSIGNED {
 BREAKPOINT {
   SOLVE ihkin METHOD sparse
   m = o1 + ginc * o2
-  ih = ghbar * m * (v - eh)
+  i = ghbar * m * (v - eh)
 }
 
 KINETIC ihkin {

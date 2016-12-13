@@ -19,7 +19,7 @@ PARAMETER {
 	
 	ghbar = .0001	(S/cm2)
 
-	eh = -30	(mV)
+	:eh = -30	(mV)
  
 Q10 = 3 (1) 
   Q10TEMP = 22 (degC) 
@@ -28,6 +28,7 @@ Q10 = 3 (1)
 }
 
 ASSIGNED {
+	eh (mV)
 	i (mA/cm2)
 	ninf
 	ntau

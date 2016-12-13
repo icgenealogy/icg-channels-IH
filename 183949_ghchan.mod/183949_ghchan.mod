@@ -4,8 +4,10 @@ TITLE gh channel channel
 
 NEURON {
 	SUFFIX gh
-	USEION k READ ek WRITE ik
-	USEION na READ ena WRITE ina
+	:USEION k READ ek WRITE ik
+	:USEION na READ ena WRITE ina
+	NONSPECIFIC_CURRENT i
+	GLOBAL eh
 	RANGE ghbar, ik, ina,htau, half, slp,inf
 }
 
@@ -20,15 +22,17 @@ PARAMETER {
 	htau = 50 (ms)
 	half=-80 (mV)
 	slp=8 (mV)
-	ek = -77 (mV)
-	ena = 50 (mV)
+	:ek = -77 (mV)
+	:ena = 50 (mV)
 }
 STATE {
 	n
 }
 ASSIGNED {
-	ik (mA/cm2)
-	ina (mA/cm2)
+	:ik (mA/cm2)
+	:ina (mA/cm2)
+	i (mA/cm2)
+	eh (mV)
 	inf
 }
 
@@ -39,8 +43,9 @@ INITIAL {
 
 BREAKPOINT {
 	SOLVE states METHOD derivimplicit
-	ik = 0.7*ghbar*n*(v - ek)
-	ina = 0.3*ghbar*n*(v - ena)
+	:ik = 0.7*ghbar*n*(v - ek)
+	:ina = 0.3*ghbar*n*(v - ena)
+	i = ghbar*n*(v-eh)
 }
 
 DERIVATIVE states {	

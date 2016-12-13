@@ -19,10 +19,11 @@ PARAMETER {
 	
 	ghbar = .0001	(S/cm2)
 
-	eh = -30	(mV)
+	:eh = -30	(mV)
 }
 
 ASSIGNED {
+	eh (mV)
 	i (mA/cm2)
 	ninf
 	ntau

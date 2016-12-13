@@ -8,7 +8,7 @@ UNITS {
 
 PARAMETER {
 	v 		           (mV)
-  ehd       		   (mV)        
+  :ehd       		   (mV)        
 	celsius 	       (degC)
 	ghdbar=0.125e-4 	   (Siemens/cm2) : PARA LA DENDRITA ES 1e-4; para el soma es 1/6*ghdbar, o sea (1/8)e-4
   vhalfl=-81       (mV)
@@ -26,7 +26,7 @@ NEURON {
 	SUFFIX htc
 	NONSPECIFIC_CURRENT i
         RANGE ghdbar, vhalfl
-        GLOBAL linf,taul
+        GLOBAL linf,taul,eh
 }
 
 STATE {
@@ -34,6 +34,7 @@ STATE {
 }
 
 ASSIGNED {
+	eh (mV)
 	i (mA/cm2)
         linf      
         taul
@@ -49,7 +50,7 @@ INITIAL {
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	ghd = ghdbar*l
-	i = ghd*(v-ehd)
+	i = ghd*(v-eh)
 
 }
 

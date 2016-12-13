@@ -39,4 +39,4 @@ DERIVATIVE states { q' = (qinf(v)-q)/qtau(v) }
 FUNCTION qinf(v(mV))     { qinf = fun2(v, -80, 1, 10)*1(ms) }
 FUNCTION qtau(v(mV))(ms) { qtau = 200(ms)/(exp((v+70(mV))/20(mV))+exp(-(v+70(mV))/20(mV))) + 5(ms) }
 
-INCLUDE "aux_fun.inc"
+INCLUDE "custom_code/inc_files/185858_aux_fun.inc"

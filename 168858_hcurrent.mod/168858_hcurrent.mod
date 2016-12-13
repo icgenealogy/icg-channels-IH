@@ -43,18 +43,20 @@ NEURON {
 	RANGE gbar              
         RANGE Vh, tauMin
         RANGE a, b
+	GLOBAL eh
 }
 
 PARAMETER { 
-	gbar = 0.0 	(mho/cm2)
-	erev = -55	(mV)  
+	gbar = 1.0 	(mho/cm2)
+	:erev = -55	(mV)  
         Vh = -75	(mV)
         a = -0.4090909	(/mV)
         b = 0.001	(1)
         tauMin = 5.0	(ms)
 } 
 
-ASSIGNED { 
+ASSIGNED {
+	eh (mV) 
 	i 		(mA/cm2) 
 	minf 		(1)
 	mtau 		(ms) 
@@ -71,7 +73,7 @@ INITIAL {
 
 BREAKPOINT {
 	SOLVE states METHOD cnexp
-	i = gbar * m * ( v - erev )
+	i = gbar * m * ( v - eh )
 }
 
 DERIVATIVE states {

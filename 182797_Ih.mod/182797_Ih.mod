@@ -18,8 +18,9 @@ UNITS {
  
 NEURON {
         SUFFIX Ih
-        USEION h READ eh WRITE ih VALENCE 1
-        RANGE gkhbar,ih,g
+        :USEION h READ eh WRITE ih VALENCE 1
+        NONSPECIFIC_CURRENT i
+	RANGE gkhbar,ih,g
         GLOBAL rinf
 }
 
@@ -30,7 +31,7 @@ PARAMETER {
         p = 5 (degC)
         dt (ms)
 	gkhbar = 0.000005 (mho/cm2)
-        eh = -32.9 (mV)
+        :eh = -32.9 (mV)
 
 	t1 = 1 (ms)
 	t2 = 1
@@ -47,7 +48,8 @@ STATE {
 }
  
 ASSIGNED {
-        ih (mA/cm2)
+	eh (mV)
+        i (mA/cm2)
 	rinf 
 	tau_r	(ms)
 	g (S/cm2)
@@ -55,7 +57,7 @@ ASSIGNED {
  
 BREAKPOINT {
         SOLVE state METHOD cnexp
-        ih = gkhbar*r*(v - eh)
+        i = gkhbar*r*(v - eh)
 	g = gkhbar*r
 }
  

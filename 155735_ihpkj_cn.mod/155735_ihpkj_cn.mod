@@ -27,7 +27,7 @@ PARAMETER {
     
     ghbar = .0001	(S/cm2)
     
-    eh = -30	(mV)
+    :eh = -30	(mV)
     : channel noise - start
     seed = 5061983 (1)
     gamma_h = 10 (pS)
@@ -35,6 +35,7 @@ PARAMETER {
 }
 
 ASSIGNED {
+    eh (mV)
     i (mA/cm2)
     ninf
     ntau

@@ -3,8 +3,9 @@
 
 NEURON	{
 	SUFFIX Ih
-	NONSPECIFIC_CURRENT ihcn
-	RANGE gIhbar, gIh, ihcn 
+	NONSPECIFIC_CURRENT i
+	RANGE gIhbar, gIh, ihcn
+	GLOBAL eh 
 }
 
 UNITS	{
@@ -15,12 +16,13 @@ UNITS	{
 
 PARAMETER	{
 	gIhbar = 0.00001 (S/cm2) 
-	ehcn =  -45.0 (mV)
+	:ehcn =  -45.0 (mV)
 }
 
 ASSIGNED	{
+	eh (mV)
 	v	(mV)
-	ihcn	(mA/cm2)
+	i	(mA/cm2)
 	gIh	(S/cm2)
 	mInf
 	mTau
@@ -35,7 +37,7 @@ STATE	{
 BREAKPOINT	{
 	SOLVE states METHOD cnexp
 	gIh = gIhbar*m
-	ihcn = gIh*(v-ehcn)
+	i = gIh*(v-eh)
 }
 
 DERIVATIVE states	{
