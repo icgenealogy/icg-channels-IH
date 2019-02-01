@@ -8,9 +8,10 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	SUFFIX iH
-	USEION h READ eh WRITE ih VALENCE 1
+	NONSPECIFIC_CURRENT i
+	:USEION h READ eh WRITE ih VALENCE 1
 	RANGE gbar, h_inf, tau, ih  
-	GLOBAL t0,t1,off, slo, offt1, offt2, slot1, slot2
+	GLOBAL t0,t1,off, slo, offt1, offt2, slot1, slot2, eh
 	GLOBAL q10, temp, tadj, vmin,vmax
 	
 }
@@ -30,7 +31,7 @@ PARAMETER {
 	
 	celsius		(degC)
 	eh	   (mV)     
-	gbar	= 0.0	(pS/um2)
+	gbar	= 1	(pS/um2)
 
 	off = -91       (mV)   		: V1/2 of activation	
 	slo=6		(mV)	 	: slope of activation
@@ -51,7 +52,7 @@ PARAMETER {
 
 
 ASSIGNED {
-	ih		(mA/cm2)
+	i		(mA/cm2)
         h_inf
         tau        (ms)
 	tadj
@@ -68,7 +69,7 @@ INITIAL {
 
 BREAKPOINT { 
 	SOLVE states METHOD cnexp
-      	ih = (1e-4) * gbar * h * (v-eh)
+      	i = (1e-4) * gbar * h * (v-eh)
 }
 
 

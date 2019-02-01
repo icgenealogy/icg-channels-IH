@@ -3,8 +3,10 @@ TITLE  H-current that uses Na ions
 
 NEURON {
 	SUFFIX hcb
-        RANGE  gbar,vhalf, K, taun, ninf, g, ihi 
-	USEION hi READ ehi WRITE ihi VALENCE 1      
+	NONSPECIFIC_CURRENT i
+	:USEION hi READ ehi WRITE ihi VALENCE 1      
+    RANGE  gbar,vhalf, K, taun, ninf, g, ihi 
+	GLOBAL eh
 
 }
 
@@ -21,9 +23,9 @@ UNITS {
 
 PARAMETER {              : parameters that can be entered when function is called in cell-setup
         ena    = 55    (mV)
-        ehi     = -10   (mV)
+        eh     = -10   (mV)
 	K      = 10.0   (mV)	
-	gbar   = 0     (mho/cm2)  : initialize conductance to zero
+	gbar   = 1     (mho/cm2)  : initialize conductance to zero
 	vhalf  = -90   (mV)       : half potential
 }	
 
@@ -34,7 +36,7 @@ STATE {                : the unknown parameters to be solved in the DEs
 
 ASSIGNED {            
         v 
-	ihi (mA/cm2)
+	i (mA/cm2)
 	ninf
 	taun (ms)
 	g
@@ -47,14 +49,14 @@ INITIAL {
 	rates()	
 	n = ninf
 	g = gbar*n
-	ihi = g*(v-ehi)
+	i = g*(v-eh)
 }
 
 
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar*n 
-	ihi = g*(v-ehi)  
+	i = g*(v-eh)  
 }
 
 DERIVATIVE states {

@@ -3,8 +3,10 @@ TITLE  H-current that uses Na ions
 
 NEURON {
 	SUFFIX h
-        RANGE  gbar,vhalf, K, taun, ninf, g, ihi    
-	USEION hi READ ehi WRITE ihi VALENCE 1      
+	NONSPECIFIC_CURRENT i
+    RANGE  gbar,vhalf, K, taun, ninf, g, ihi    
+	:USEION hi READ ehi WRITE ihi VALENCE 1
+	GLOBAL eh      
 }
 
 UNITS {
@@ -20,9 +22,9 @@ UNITS {
 
 PARAMETER {              
         ena    = 55    (mV)
-        ehi     = -10   (mV)
+        eh     = -10   (mV)
 	K      = 10.0   (mV)	
-	gbar   = 0     (mho/cm2)  
+	gbar   = 1     (mho/cm2)  
 	vhalf  = -90   (mV)       
 }	
 
@@ -33,7 +35,7 @@ STATE {
 
 ASSIGNED {             
         v 
-	ihi (mA/cm2)
+	i (mA/cm2)
 	ninf
 	taun (ms)
 	g
@@ -47,14 +49,14 @@ INITIAL {               : initialize the following parameter using states()
 	n = ninf
 	g = gbar*n
 :	ina = g*(v-eh)
-	ihi = g*(v-ehi)
+	i = g*(v-eh)
 }
 
 
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar*n
-	ihi = g*(v-ehi)  
+	i = g*(v-eh)  
 }
 
 DERIVATIVE states {
