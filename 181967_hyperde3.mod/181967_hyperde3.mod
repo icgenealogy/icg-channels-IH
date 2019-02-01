@@ -25,16 +25,14 @@ UNITS {
 ? interface 
 NEURON { 
 SUFFIX hyperde3 
-:USEION hyf READ ehyf WRITE ihyf VALENCE 1
-:USEION hys READ ehys WRITE ihys VALENCE 1
-:USEION hyhtf READ ehyhtf WRITE ihyhtf VALENCE 1
-:USEION hyhts READ ehyhts WRITE ihyhts VALENCE 1
-NONSPECIFIC_CURRENT i
+USEION hyf READ ehyf WRITE ihyf VALENCE 1
+USEION hys READ ehys WRITE ihys VALENCE 1
+USEION hyhtf READ ehyhtf WRITE ihyhtf VALENCE 1
+USEION hyhts READ ehyhts WRITE ihyhts VALENCE 1
 RANGE  ghyf, ghys, ghyhtf, ghyhts
 RANGE ghyfbar, ghysbar, ghyhtfbar, ghyhtsbar
 RANGE hyfinf, hysinf, hyftau, hystau
 RANGE hyhtfinf, hyhtsinf, hyhtftau, hyhtstau, ihyf, ihys
-GLOBAL eh
 }
  
 INDEPENDENT {t FROM 0 TO 100 WITH 100 (ms)}
@@ -44,8 +42,8 @@ PARAMETER {
       celsius = 6.3 (degC)
       dt (ms) 
 
-	ghyfbar = 1.0 (mho/cm2)
-	ghysbar = 1.0 (mho/cm2)
+	ghyfbar (mho/cm2)
+	ghysbar (mho/cm2)
 	ehyf (mV)
 	ehys (mV)
 	ghyhtfbar (mho/cm2)
@@ -67,8 +65,6 @@ ASSIGNED {
 	ghyhtf (mho/cm2)
 	ghyhts (mho/cm2)
 
-	i (mA/cm2)
-	eh (mV)
   
 	ihyf (mA/cm2)
 	ihys (mA/cm2)
@@ -85,16 +81,15 @@ BREAKPOINT {
 
 	SOLVE states
 
-	:ghyf = ghyfbar * hyf*hyf
-	:ihyf = ghyf * (v-eh)
-        ghys = ghysbar * hys*hys
-	ihys = ghys * (v-eh)
-	i = ihys
+	ghyf = ghyfbar * hyf*hyf
+	ihyf = ghyf * (v-ehyf)
+	ghys = ghysbar * hys*hys
+	ihys = ghys * (v-ehys)
 
-	:ghyhtf = ghyhtfbar * hyhtf* hyhtf
-	:ihyhtf = ghyhtf * (v-ehyhtf)
-	:ghyhts = ghyhtsbar * hyhts* hyhts
-	:ihyhts = ghyhts * (v-ehyhts)
+	ghyhtf = ghyhtfbar * hyhtf* hyhtf
+	ihyhtf = ghyhtf * (v-ehyhtf)
+	ghyhts = ghyhtsbar * hyhts* hyhts
+	ihyhts = ghyhts * (v-ehyhts)
 		
 		}
  
